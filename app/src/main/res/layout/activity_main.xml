@@ -5,18 +5,32 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".MainActivity">
-  <android.support.v4.widget.DrawerLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-  </android.support.v4.widget.DrawerLayout>
+  <ImageView
+    android:layout_width="250sp"
+    android:layout_height="250sp"
+    android:id="@+id/image_view"
+    android:layout_centerHorizontal="true"
+    android:layout_margin="10sp"
+    android:src="@drawable/ic_image_black_24dp"
+    />
+
   <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Start Cam "
+    android:text="Capture Image"
     android:id="@+id/cam_button"
+    android:layout_below="@+id/image_view"
     android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
+    android:layout_margin="10sp"
     />
-
+  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Load Image"
+    android:id="@+id/load_button"
+    android:layout_below="@+id/cam_button"
+    android:layout_centerHorizontal="true"
+    android:layout_margin="10sp"
+    />
 </RelativeLayout>
