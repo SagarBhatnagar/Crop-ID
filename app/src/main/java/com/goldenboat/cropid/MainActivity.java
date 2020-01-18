@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -80,10 +81,7 @@ public class MainActivity extends AppCompatActivity {
                             TensorFlowClassifier.create(getAssets(), "TensorFlow",
                                     "opt_mnist_convnet-tf.pb", "labels.txt", PIXEL_WIDTH,
                                     "input", "output", true));
-                    mClassifiers.add(
-                            TensorFlowClassifier.create(getAssets(), "Keras",
-                                    "opt_mnist_convnet-keras.pb", "labels.txt", PIXEL_WIDTH,
-                                    "conv2d_1_input", "dense_2/Softmax", false));
+
                 } catch (final Exception e) {
                     //if they aren't found, throw an error!
                     throw new RuntimeException("Error initializing classifiers!", e);
@@ -122,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
                 return;
             }
+
             imageView.setImageURI(image);
             DecodeImage(bm);
         }
@@ -129,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(photo);
+            //DecodeImage(photo);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -136,12 +136,12 @@ public class MainActivity extends AppCompatActivity {
     public void DecodeImage(Bitmap bm){
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         bm.recycle();
 
-        float pixels[] = new float[stream.toByteArray().length];
+        float pixels[] = new float[PIXEL_WIDTH*PIXEL_WIDTH];
         byte arr[] = stream.toByteArray();
-        for(int i=0;i<stream.toByteArray().length ;i++){
+        for(int i=0;i<PIXEL_WIDTH*PIXEL_WIDTH;i++){
             if(arr[i] == 1) pixels[i] = 1;
             else pixels[i] = 0;
 
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 text += classifier.name() + ": ?\n";
             } else {
                 //else output its name
-                text += String.format("%s: %s, %f\n", classifier.name(), res.getLabel(),
+                text += String.format("%s : %f\n", res.getLabel(),
                         res.getConf());
             }
         }

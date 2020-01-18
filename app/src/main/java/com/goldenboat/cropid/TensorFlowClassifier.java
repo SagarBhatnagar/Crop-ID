@@ -40,7 +40,7 @@ public class TensorFlowClassifier implements Classifier {
     //given a saved drawn model, lets read all the classification labels that are
     //stored and write them to our in memory labels list
     private static List<String> readLabels(AssetManager am, String fileName) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(am.open(fileName)));
+        /*BufferedReader br = new BufferedReader(new InputStreamReader(am.open(fileName)));
 
         String line;
         List<String> labels = new ArrayList<>();
@@ -48,7 +48,18 @@ public class TensorFlowClassifier implements Classifier {
             labels.add(line);
         }
 
-        br.close();
+        br.close();*/
+        List<String> labels = new ArrayList<>();
+        labels.add(new String("0"));
+        labels.add(new String("1"));
+        labels.add(new String("2"));
+        labels.add(new String("3"));
+        labels.add(new String("4"));
+        labels.add(new String("5"));
+        labels.add(new String("6"));
+        labels.add(new String("7"));
+        labels.add(new String("8"));
+        labels.add(new String("9"));
         return labels;
     }
 
